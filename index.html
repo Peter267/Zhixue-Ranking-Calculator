@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF - 8">
+  <meta name="viewport" content="width=device-width, initial - scale=1.0">
+  <title>智学网排名计算器</title>
+  <style>
+    body {
+      font-family: Arial, sans - serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+   .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    select,
+    input,
+    button {
+      display: block;
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      color: #333;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>智学网排名计算器</h1>
+    <select id="gradeSelect">
+      <option value="A5">A5</option>
+      <option value="A4">A4</option>
+      <option value="A3">A3</option>
+      <option value="A2">A2</option>
+      <option value="A1">A1</option>
+      <option value="B5">B5</option>
+      <option value="B4">B4</option>
+      <option value="B3">B3</option>
+      <option value="B2">B2</option>
+      <option value="B1">B1</option>
+      <option value="C5">C5</option>
+      <option value="C4">C4</option>
+      <option value="C3">C3</option>
+      <option value="C2">C2</option>
+      <option value="C1">C1</option>
+      <option value="D5">D5</option>
+      <option value="D4">D4</option>
+      <option value="D3">D3</option>
+      <option value="D2">D2</option>
+      <option value="D1">D1</option>
+      <option value="E">E</option>
+    </select>
+    <input type="number" id="totalStudents" placeholder="输入考试总人数">
+    <button onclick="calculateRank()">计算排名</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function calculateRank() {
+      var gradeSelect = document.getElementById("gradeSelect");
+      var totalStudents = document.getElementById("totalStudents").value;
+      var grade = gradeSelect.value;
+      var rankRanges = {
+        "A5": [0, 2],
+        "A4": [2, 5],
+        "A3": [5, 9],
+        "A2": [9, 14],
+        "A1": [14, 20],
+        "B5": [20, 27],
+        "B4": [27, 34],
+        "B3": [34, 41],
+        "B2": [41, 48],
+        "B1": [48, 55],
+        "C5": [55, 61],
+        "C4": [61, 67],
+        "C3": [67, 73],
+        "C2": [73, 79],
+        "C1": [79, 85],
+        "D5": [85, 90],
+        "D4": [90, 94],
+        "D3": [94, 97],
+        "D2": [97, 98],
+        "D1": [98, 99],
+        "E": [99, 100]
+      };
+      var range = rankRanges[grade];
+      var minRank = Math.ceil(totalStudents * (range[0] / 100));
+      var maxRank = Math.ceil(totalStudents * (range[1] / 100));
+      var result = document.getElementById("result");
+      result.innerHTML = "你的排名在 " + minRank + " 到 " + maxRank + " 之间";
+    }
+  </script>
+</body>
+
+</html>
