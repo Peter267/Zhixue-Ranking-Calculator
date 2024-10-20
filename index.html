@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF - 8">
-  <meta name="viewport" content="width=device-width, initial - scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>智学网排名计算器</title>
+  <link rel="icon" href="https://wmimg.com/i/1169/2024/10/67137de25d188.png" type="image/png">
   <style>
     body {
-      font-family: Arial, sans - serif;
+      font-family: Arial, sans-serif;
       background-color: #f4f4f4;
       display: flex;
       flex-direction: column;
@@ -18,11 +19,11 @@
     }
 
     h1 {
-      color: #333;
+      color: #0dc2b3; /* 主色调 */
       margin-bottom: 30px;
     }
 
-   .container {
+    .container {
       background-color: white;
       padding: 30px;
       border-radius: 10px;
@@ -39,17 +40,43 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 16px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    select {
+      appearance: none;
+      background-color: #f8f8f8;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="%230dc2b3"><path d="M7 10l5 5 5-5z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 30px;
+    }
+
+    select:focus {
+      border-color: #0dc2b3;
+      box-shadow: 0 0 5px rgba(13, 194, 179, 0.5);
+      outline: none;
+    }
+
+    input {
+      background-color: #f8f8f8;
+    }
+
+    input:focus {
+      border-color: #0dc2b3;
+      box-shadow: 0 0 5px rgba(13, 194, 179, 0.5);
+      outline: none;
     }
 
     button {
-      background-color: #007BFF;
+      background-color: #0dc2b3; /* 主色调 */
       color: white;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #0056b3;
+      background-color: #0a9e91; /* 主色调的深色变体 */
     }
 
     #result {
@@ -57,12 +84,41 @@
       font-size: 18px;
       margin-top: 20px;
     }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .footer a {
+      color: #0dc2b3; /* 主色调 */
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>智学网排名计算器</h1>
+    <h1>智 学 网 排 名 计 算 器</h1>
+    <label for="gradeSelect">选择等级</label>
     <select id="gradeSelect">
       <option value="A5">A5</option>
       <option value="A4">A4</option>
@@ -86,16 +142,38 @@
       <option value="D1">D1</option>
       <option value="E">E</option>
     </select>
+    <!-- 添加“输入考试总人数”标题 -->
+    <label for="totalStudents">输入考试总人数</label>
     <input type="number" id="totalStudents" placeholder="输入考试总人数">
     <button onclick="calculateRank()">计算排名</button>
     <p id="result"></p>
+    <p id="error" class="error"></p>
+  </div>
+
+  <!-- 添加版权标识 -->
+  <div class="footer">
+    © 2024 <a href="https://peter267.zeabur.app" target="_blank">Wu Jingbo</a>
   </div>
 
   <script>
     function calculateRank() {
       var gradeSelect = document.getElementById("gradeSelect");
-      var totalStudents = document.getElementById("totalStudents").value;
+      var totalStudentsInput = document.getElementById("totalStudents");
+      var totalStudents = totalStudentsInput.value;
       var grade = gradeSelect.value;
+      var errorElement = document.getElementById("error");
+      var resultElement = document.getElementById("result");
+
+      // 清除之前的错误信息和结果
+      errorElement.textContent = "";
+      resultElement.textContent = "";
+
+      // 验证输入是否为正整数
+      if (!Number.isInteger(Number(totalStudents)) || totalStudents <= 0) {
+        errorElement.textContent = "请输入一个正确的数字。";
+        return;
+      }
+
       var rankRanges = {
         "A5": [0, 2],
         "A4": [2, 5],
@@ -122,8 +200,7 @@
       var range = rankRanges[grade];
       var minRank = Math.ceil(totalStudents * (range[0] / 100));
       var maxRank = Math.ceil(totalStudents * (range[1] / 100));
-      var result = document.getElementById("result");
-      result.innerHTML = "你的排名在 " + minRank + " 到 " + maxRank + " 之间";
+      resultElement.innerHTML = "你的排名在 " + minRank + " 到 " + maxRank + " 之间";
     }
   </script>
 </body>
