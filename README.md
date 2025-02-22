@@ -48,5 +48,6 @@
 您只需要Fork本仓库，并用Vercel部署即可
 目前有一个诡异的问题，本产品使用Zeabur部署后会显示乱码，所有中文无法显示。所以不要用Zeabur部署！
 ## 网站截图
-![image](https://github.com/user-attachments/assets/b1166c2f-562e-417e-95a6-df3221874354)
+![网站截图](https://github.com/user-attachments/assets/0c8396a4-e4e5-41ad-ad58-901ab793f6e8)
+
 
