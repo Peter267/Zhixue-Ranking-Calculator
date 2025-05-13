@@ -16,9 +16,7 @@
 
 3.将考试总人数填入下方输入框
 ## 演示网站
-国内网站：https://simplesearch.rth1.xyz/zhixue
-
-国外网站：https://zhixue-ranking-calculator.vercel.app
+https://peter267.dpdns.org
 ## 计算依据
 本产品按照下列表格进行计算，此表格来源于智学网官方
 | 等级 | 最高(水平前%) | 最低(水平前%) |
