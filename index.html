@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>智学网排名计算器</title>
   <link rel="icon" href="https://wmimg.com/i/1169/2024/10/67137de25d188.png" type="image/png">
-  <script defer src="https://umami.peter267.dpdns.org/script.js" data-website-id="a20260e0-58a1-48f2-99b3-08ead5c97111"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f4;
@@ -19,16 +21,29 @@
       margin: 0;
     }
 
-    h1 {
-      color: #0dc2b3; /* 主色调 */
-      margin-bottom: 30px;
-    }
-
     .container {
       background-color: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+
+    /* 新增：Logo 样式 */
+    .logo {
+      width: 70px;
+      height: 70px;
+      display: block;
+      margin: 0 auto 15px auto;
+    }
+
+    h1 {
+      color: #0dc2b3;
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: 24px;
+      text-align: center;
     }
 
     select,
@@ -37,11 +52,11 @@
       display: block;
       width: 100%;
       margin-bottom: 20px;
-      padding: 10px;
+      padding: 12px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 16px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
     }
 
     select {
@@ -49,161 +64,204 @@
       background-color: #f8f8f8;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="%230dc2b3"><path d="M7 10l5 5 5-5z"/></svg>');
       background-repeat: no-repeat;
-      background-position: right 10px center;
+      background-position: right 15px center;
       padding-right: 30px;
+      cursor: pointer;
     }
 
-    select:focus {
+    select:focus,
+    input:focus {
       border-color: #0dc2b3;
-      box-shadow: 0 0 5px rgba(13, 194, 179, 0.5);
+      box-shadow: 0 0 8px rgba(13, 194, 179, 0.3);
       outline: none;
+      background-color: #fff;
     }
 
     input {
       background-color: #f8f8f8;
     }
 
-    input:focus {
-      border-color: #0dc2b3;
-      box-shadow: 0 0 5px rgba(13, 194, 179, 0.5);
-      outline: none;
-    }
-
     button {
-      background-color: #0dc2b3; /* 主色调 */
+      background-color: #0dc2b3;
       color: white;
+      font-weight: bold;
+      border: none;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      margin-top: 10px;
     }
 
     button:hover {
-      background-color: #0a9e91; /* 主色调的深色变体 */
+      background-color: #0a9e91;
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(1px);
     }
 
     #result {
       color: #333;
-      font-size: 18px;
+      font-size: 16px;
       margin-top: 20px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .highlight {
+      color: #0dc2b3;
+      font-size: 22px;
+      font-weight: bold;
+      margin: 0 4px;
+    }
+
+    /* 新增：评价语句样式 */
+    .evaluation {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #777;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      border-left: 3px solid #0dc2b3;
     }
 
     label {
       display: block;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #333;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #555;
+      font-weight: bold;
     }
 
     .footer {
-      margin-top: 20px;
+      margin-top: 30px;
       font-size: 14px;
-      color: #666;
+      color: #888;
     }
 
     .footer a {
-      color: #0dc2b3; /* 主色调 */
+      color: #0dc2b3;
       text-decoration: none;
+      transition: color 0.3s ease;
     }
 
     .footer a:hover {
+      color: #0a9e91;
       text-decoration: underline;
     }
 
     .error {
-      color: red;
+      color: #e74c3c;
       font-size: 14px;
       margin-top: 10px;
+      text-align: center;
     }
   </style>
 </head>
-
 <body>
   <div class="container">
-    <h1>智 学 网 排 名 计 算 器</h1>
+    <img src="https://wmimg.com/i/1169/2024/10/67137de25d188.png" alt="智学网计算器 Logo" class="logo">
+    <h1>智学网排名计算器</h1>
+    
     <label for="gradeSelect">选择等级</label>
     <select id="gradeSelect">
-      <option value="A5">A5</option>
-      <option value="A4">A4</option>
-      <option value="A3">A3</option>
-      <option value="A2">A2</option>
-      <option value="A1">A1</option>
-      <option value="B5">B5</option>
-      <option value="B4">B4</option>
-      <option value="B3">B3</option>
-      <option value="B2">B2</option>
-      <option value="B1">B1</option>
-      <option value="C5">C5</option>
-      <option value="C4">C4</option>
-      <option value="C3">C3</option>
-      <option value="C2">C2</option>
-      <option value="C1">C1</option>
-      <option value="D5">D5</option>
-      <option value="D4">D4</option>
-      <option value="D3">D3</option>
-      <option value="D2">D2</option>
-      <option value="D1">D1</option>
-      <option value="E">E</option>
+      <option value="A5">A5 (前2%)</option>
+      <option value="A4">A4 (2%-5%)</option>
+      <option value="A3">A3 (5%-9%)</option>
+      <option value="A2">A2 (9%-14%)</option>
+      <option value="A1">A1 (14%-20%)</option>
+      <option value="B5">B5 (20%-27%)</option>
+      <option value="B4">B4 (27%-34%)</option>
+      <option value="B3">B3 (34%-41%)</option>
+      <option value="B2">B2 (41%-48%)</option>
+      <option value="B1">B1 (48%-55%)</option>
+      <option value="C5">C5 (55%-61%)</option>
+      <option value="C4">C4 (61%-67%)</option>
+      <option value="C3">C3 (67%-73%)</option>
+      <option value="C2">C2 (73%-79%)</option>
+      <option value="C1">C1 (79%-85%)</option>
+      <option value="D5">D5 (85%-90%)</option>
+      <option value="D4">D4 (90%-94%)</option>
+      <option value="D3">D3 (94%-97%)</option>
+      <option value="D2">D2 (97%-98%)</option>
+      <option value="D1">D1 (98%-99%)</option>
+      <option value="E">E (99%-100%)</option>
     </select>
-    <!-- 添加“输入考试总人数”标题 -->
+    
     <label for="totalStudents">输入考试总人数</label>
-    <input type="number" id="totalStudents" placeholder="输入考试总人数">
+    <input type="number" id="totalStudents" placeholder="例如：1200">
+    
     <button onclick="calculateRank()">计算排名</button>
-    <p id="result"></p>
+    
     <p id="error" class="error"></p>
+    <p id="result"></p>
   </div>
 
-  <!-- 添加版权标识 -->
   <div class="footer">
-    © 2024 <a href="https://peter267.github.io" target="_blank">Wu Jingbo</a>
+    © 2024 <a href="https://peter267.zeabur.app" target="_blank">Wu Jingbo</a>
   </div>
 
   <script>
+    document.getElementById("totalStudents").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        calculateRank();
+      }
+    });
+
     function calculateRank() {
-      var gradeSelect = document.getElementById("gradeSelect");
-      var totalStudentsInput = document.getElementById("totalStudents");
-      var totalStudents = totalStudentsInput.value;
-      var grade = gradeSelect.value;
-      var errorElement = document.getElementById("error");
-      var resultElement = document.getElementById("result");
+      const gradeSelect = document.getElementById("gradeSelect");
+      const totalStudentsInput = document.getElementById("totalStudents");
+      const errorElement = document.getElementById("error");
+      const resultElement = document.getElementById("result");
+      
+      const totalStudents = Number(totalStudentsInput.value);
+      const grade = gradeSelect.value;
 
-      // 清除之前的错误信息和结果
       errorElement.textContent = "";
-      resultElement.textContent = "";
+      resultElement.innerHTML = "";
 
-      // 验证输入是否为正整数
-      if (!Number.isInteger(Number(totalStudents)) || totalStudents <= 0) {
-        errorElement.textContent = "请输入一个正确的数字。";
+      if (!Number.isInteger(totalStudents) || totalStudents <= 0) {
+        errorElement.textContent = "请输入正确的考试总人数（正整数）。";
         return;
       }
 
-      var rankRanges = {
-        "A5": [0, 2],
-        "A4": [2, 5],
-        "A3": [5, 9],
-        "A2": [9, 14],
-        "A1": [14, 20],
-        "B5": [20, 27],
-        "B4": [27, 34],
-        "B3": [34, 41],
-        "B2": [41, 48],
-        "B1": [48, 55],
-        "C5": [55, 61],
-        "C4": [61, 67],
-        "C3": [67, 73],
-        "C2": [73, 79],
-        "C1": [79, 85],
-        "D5": [85, 90],
-        "D4": [90, 94],
-        "D3": [94, 97],
-        "D2": [97, 98],
-        "D1": [98, 99],
+      const rankRanges = {
+        "A5": [0, 2], "A4": [2, 5], "A3": [5, 9], "A2": [9, 14], "A1": [14, 20],
+        "B5": [20, 27], "B4": [27, 34], "B3": [34, 41], "B2": [41, 48], "B1": [48, 55],
+        "C5": [55, 61], "C4": [61, 67], "C3": [67, 73], "C2": [73, 79], "C1": [79, 85],
+        "D5": [85, 90], "D4": [90, 94], "D3": [94, 97], "D2": [97, 98], "D1": [98, 99],
         "E": [99, 100]
       };
-      var range = rankRanges[grade];
-      var minRank = Math.ceil(totalStudents * (range[0] / 100));
-      var maxRank = Math.ceil(totalStudents * (range[1] / 100));
-      resultElement.innerHTML = "你的排名在 " + minRank + " 到 " + maxRank + " 之间";
+
+      const range = rankRanges[grade];
+      
+      let minRank = Math.floor(totalStudents * (range[0] / 100)) + 1;
+      let maxRank = Math.ceil(totalStudents * (range[1] / 100));
+
+      if (minRank < 1) minRank = 1;
+      if (minRank > maxRank) minRank = maxRank;
+
+      // 新增：根据成绩等级生成不同的评价语
+      let evaluationText = "";
+      if (grade.startsWith("A")) {
+        evaluationText = "太棒了！成绩非常优异，请继续保持你的优势！🌟";
+      } else if (grade.startsWith("B")) {
+        evaluationText = "成绩不错！基础很扎实，稍微加把劲就能冲刺A等级！💪";
+      } else if (grade.startsWith("C")) {
+        evaluationText = "成绩中规中矩。找到薄弱点攻克一下，就能实现突破！🚀";
+      } else if (grade.startsWith("D")) {
+        evaluationText = "成绩还有提升空间。注意查漏补缺，下次一定能行！📚";
+      } else if (grade === "E") {
+        evaluationText = "不要气馁！找到适合自己的学习方法，一步一步稳扎稳打！🔥";
+      }
+
+      // 将评价语一起输出，包裹在自定义样式的 div 中
+      resultElement.innerHTML = `
+        你的排名大约在 <span class="highlight">${minRank}</span> 到 <span class="highlight">${maxRank}</span> 名之间
+        <span class="evaluation">${evaluationText}</span>
+      `;
     }
   </script>
 </body>
-
 </html>
